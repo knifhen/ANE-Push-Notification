@@ -50,7 +50,13 @@
             match="public static final boolean USE_MULTI_MSG = ([^;]+);" 
             replace="public static final boolean USE_MULTI_MSG = ${useMultiMsg};"/>
 
-		<javac srcdir="../android/src" source="1.7" target="1.7" destdir="../android/temp/classes" includeantruntime="false" debug="${ANDROID_DEBUG}">
+		<exec executable="/usr/libexec/java_home" outputproperty="java7home">
+			<arg line="-v 1.7" />
+		</exec>
+
+		<echo message="Java 7 Home: ${java7home}" />
+
+		<javac executable="${java7home}/bin/javac" fork='yes' srcdir="../android/src" source="1.7" target="1.7" destdir="../android/temp/classes" includeantruntime="false" debug="${ANDROID_DEBUG}">
 			<classpath>
 				<pathelement location="${android.sdk}/android.jar"/>
 				<pathelement location="../android/libs/FlashRuntimeExtensions.jar"/>
